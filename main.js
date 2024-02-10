@@ -9,10 +9,30 @@
 // 유저가 이미 입력한 숫자를 또 입력하면, 알려준다, 기회를 깍지 않는다
 
 let computerNum = 0;
+let playButton = document.getElementById("play-button");
+let userInput = document.getElementById("user-input");
+let resultArea = document.getElementById("result-area");
+
+playButton.addEventListener("click", play);
 
 function pickRandomNum() {
-  computerNum = Math.floor(Math.random()*100 +1)
+  computerNum = Math.floor(Math.random() * 100 + 1);
   console.log("정답", computerNum);
+}
+
+function play() {
+    let userValue = userInput.value;
+    if (userValue < computerNum){
+        console.log("Up!!");
+        resultArea.textContent = "Up!!!"
+    } else if (userValue > computerNum) {
+        console.log("Down!!");
+        resultArea.textContent = "Down!!!"
+    } else {
+        console.log("정답!");
+        resultArea.textContent = "정답!"
+
+    }
 }
 
 pickRandomNum();
