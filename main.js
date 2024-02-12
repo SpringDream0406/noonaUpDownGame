@@ -10,7 +10,6 @@ let btnReset = document.getElementById("btn-reset");
 let userNum;
 let randomNum = 0;
 let chance = 6;
-let gameOver = false;
 let minNum = 1;
 let maxNum = 100;
 let downImages = [
@@ -74,15 +73,11 @@ function start_game() {
 
 
   if (chance == 0) {
-    gameOver = true;
     resultArea.textContent = `정답은 ${randomNum} 이었습니다..`;
     imgArea.src =
       "https://media.giphy.com/media/00i0Tdhf4rsEkGIB2H/giphy.gif?cid=790b7611p9kqnmjlc254m2jo16n50a69uila6a8aiqo9n9s7&ep=v1_gifs_search&rid=giphy.gif&ct=g";
-  }
-
-  if (gameOver) {
-    btnGo.disabled = true;
-  }
+      btnGo.disabled = true;
+    }
 }
 
 function reset_game() {
@@ -95,7 +90,6 @@ function reset_game() {
   chance = 6;
   chanceArea.textContent = `남은 기회: ${chance}번`;
   make_randomNum();
-  gameOver = false;
   btnGo.disabled = false;
   imgArea.src =
     "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDBlZ3FseGZ0d3VucmhocXN5cHNzOGhhemNsaDA0ZHd0dHh3NWd5ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/CjmvTCZf2U3p09Cn0h/giphy.gif";
