@@ -49,9 +49,6 @@ function start_game() {
     imgArea.src = "img/err.jpg";
     return;
   }
-
-  chance--;
-  chanceArea.textContent = `남은 기회: ${chance}번`;
   if (userNum < randomNum) {
     minNum = Math.max(minNum, userNum) + 1;
     rangeArea.textContent = `${minNum} ~ ${maxNum} 사이의 숫자를 입력해주세요.`;
@@ -67,7 +64,11 @@ function start_game() {
     imgArea.src =
       "https://media.giphy.com/media/6brH8dM3zeMyA/giphy.gif?cid=790b7611tcnqyt1563omqkkjsyad7dm7qytesf96rd785kgt&ep=v1_gifs_search&rid=giphy.gif&ct=g";
     btnGo.disabled = true;
+    return;
   }
+
+  chance--;
+  chanceArea.textContent = `남은 기회: ${chance}번`;
 
   if (chance == 0) {
     gameOver = true;
