@@ -44,6 +44,9 @@ make_randomNum();
 function start_game() {
   userNum = userInput.value;
 
+  chance--;
+  chanceArea.textContent = `남은 기회: ${chance}번`;
+
   if (userNum > maxNum || userNum < minNum) {
     resultArea.textContent = `범위내의 숫자를 입력해주세요!!`;
     imgArea.src = "img/err.jpg";
@@ -67,8 +70,6 @@ function start_game() {
     return;
   }
 
-  chance--;
-  chanceArea.textContent = `남은 기회: ${chance}번`;
 
   if (chance == 0) {
     gameOver = true;
