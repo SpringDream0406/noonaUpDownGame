@@ -44,14 +44,16 @@ make_randomNum();
 function start_game() {
   userNum = userInput.value;
 
-  chance--;
-  chanceArea.textContent = `남은 기회: ${chance}번`;
 
   if (userNum > maxNum || userNum < minNum) {
     resultArea.textContent = `범위내의 숫자를 입력해주세요!!`;
     imgArea.src = "https://media.giphy.com/media/gb3At7bFNrjK76Nw5n/giphy.gif?cid=790b7611c62ks4i53o8ia2cwhavwks8sk5gmgbrelzw1fqs9&ep=v1_gifs_search&rid=giphy.gif&ct=g";
     return;
   }
+
+  chance--;
+  chanceArea.textContent = `남은 기회: ${chance}번`;
+
   if (userNum < randomNum) {
     minNum = Math.max(minNum, userNum) + 1;
     rangeArea.textContent = `${minNum} ~ ${maxNum} 사이의 숫자를 입력해주세요.`;
