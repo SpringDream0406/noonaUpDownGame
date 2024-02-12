@@ -13,4 +13,8 @@ body {
   .img-area {
     margin: 20px;
   }
-  
+
+  .github-link {
+    position: absolute;
+    bottom: 50px;
+  }

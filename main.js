@@ -49,7 +49,7 @@ function start_game() {
 
   if (userNum > maxNum || userNum < minNum) {
     resultArea.textContent = `범위내의 숫자를 입력해주세요!!`;
-    imgArea.src = "img/err.jpg";
+    imgArea.src = "https://media.giphy.com/media/gb3At7bFNrjK76Nw5n/giphy.gif?cid=790b7611c62ks4i53o8ia2cwhavwks8sk5gmgbrelzw1fqs9&ep=v1_gifs_search&rid=giphy.gif&ct=g";
     return;
   }
   if (userNum < randomNum) {
