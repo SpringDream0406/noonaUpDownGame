@@ -9,7 +9,7 @@ let btnReset = document.getElementById("btn-reset");
 
 let userNum;
 let randomNum = 0;
-let chance = 7;
+let chance = 6;
 let gameOver = false;
 let minNum = 1;
 let maxNum = 100;
@@ -88,7 +88,7 @@ function reset_game() {
   rangeArea.textContent = `${minNum} ~ ${maxNum} 사이의 숫자를 입력해주세요.`;
   resultArea.textContent = `Up & Down`;
 
-  chance = 7;
+  chance = 6;
   chanceArea.textContent = `남은 기회: ${chance}번`;
   make_randomNum();
   gameOver = false;
