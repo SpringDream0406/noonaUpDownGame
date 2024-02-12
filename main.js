@@ -1,85 +1,98 @@
-// 랜덤번호 지정
-// 유저가 번호를 입력한다 그리고 go라는 버튼을 누름
-// 만약에 유저가 랜덤번호를 맞추면, 맞췄습니다!
-// 랜덤번호가 < 유저번호 Down!!!
-// 랜덤번호가 > 유저번호 Up!!
-// Reset버튼을 누르면 게임이 리셋된다
-// 5번의 기회를 다 쓰면 게임이 끝난다 (더이상 추측 불가, 버튼이 disable)
-// 유저가 1~100 범위 밖에 숫자를 입력하면 알려준다. 기회를 깍지 않는다
-// 유저가 이미 입력한 숫자를 또 입력하면, 알려준다, 기회를 깍지 않는다
-
-let computerNum = 0;
-let playButton = document.getElementById("play-button");
-let userInput = document.getElementById("user-input");
 let resultArea = document.getElementById("result-area");
-let resetButton = document.getElementById("reset-button");
-let chances = 10;
+let userInput = document.getElementById("user-input");
+let chanceArea = document.getElementById("chance-area");
+let imgArea = document.getElementById("img-area");
+let rangeArea = document.getElementById("range-area");
+
+let btnGo = document.getElementById("btn-go");
+let btnReset = document.getElementById("btn-reset");
+
+let userNum;
+let randomNum = 0;
+let chance = 7;
 let gameOver = false;
-let chanceArea = document.getElementById("change-area");
-let history = [];
+let minNum = 1;
+let maxNum = 100;
+let downImages = [
+  "https://media.giphy.com/media/uP89pJyXBDqVi/giphy.gif",
+  "https://media.giphy.com/media/3ohhwH6yMO7ED5xc7S/giphy.gif",
+  "https://media.giphy.com/media/YPsmTqYiHCMYtlsfKZ/giphy.gif",
+  "https://media.giphy.com/media/iJxHzcuNcCJXi/giphy.gif",
+  "https://media.giphy.com/media/dC9Hk5uVVux4HUE5ya/giphy.gif",
+  "https://media.giphy.com/media/CfbDPJ17xZwqI/giphy.gif",
+];
+let upImages = [
+  "https://media.giphy.com/media/Kg3HfmbPOGJggjjS31/giphy.gif?cid=790b7611iejgos1h97xcgzeg3pv4x9n10gwkeov3of5rn3t7&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+  "https://media.giphy.com/media/3o7TKHVU0xsgGDCyPu/giphy.gif?cid=790b7611iejgos1h97xcgzeg3pv4x9n10gwkeov3of5rn3t7&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+  "https://media.giphy.com/media/d5Hgiq0neyKqWO62cj/giphy.gif?cid=790b7611iejgos1h97xcgzeg3pv4x9n10gwkeov3of5rn3t7&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+  "https://media.giphy.com/media/l2YWf0spzBzXQOxRm/giphy.gif?cid=790b7611iejgos1h97xcgzeg3pv4x9n10gwkeov3of5rn3t7&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+  "https://media.giphy.com/media/ri3uvuWKPc9UWFMKXq/giphy.gif?cid=ecf05e479t1h6u9jbsgedf1rtug1vv9rdgdopwhi6bl9gbnd&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+  "https://media.giphy.com/media/AwttwIryJLZodu6UyS/giphy.gif?cid=ecf05e479t1h6u9jbsgedf1rtug1vv9rdgdopwhi6bl9gbnd&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+];
 
-playButton.addEventListener("click", play);
-resetButton.addEventListener("click", reset);
-
-// focus, 한번만 쓰일 함수는 이름 지정안하고 그냥 안에 집어넣는것도 방법
+btnGo.addEventListener("click", start_game);
+btnReset.addEventListener("click", reset_game);
 userInput.addEventListener("focus", function () {
   userInput.value = "";
 });
 
-function pickRandomNum() {
-  computerNum = Math.floor(Math.random() * 100 + 1);
-  console.log("정답", computerNum);
+function make_randomNum() {
+  randomNum = Math.floor(Math.random() * 100) + 1;
 }
+make_randomNum();
 
-function play() {
-  let userValue = userInput.value;
+function start_game() {
+  userNum = userInput.value;
 
-  if (userValue < 1 || userValue > 100) {
-    resultArea.textContent = "1과 100사이 숫자를 입력해주세요.";
+  if (userNum > maxNum || userNum < minNum) {
+    resultArea.textContent = `범위내의 숫자를 입력해주세요!!`;
+    imgArea.src = "img/err.jpg";
     return;
   }
 
-  if (history.includes(userValue)) {
-    resultArea.textContent =
-      "이미 입력한 숫자입니다. 다른 숫자를 입력해주세요.";
-    return;
-  }
-
-  chances--;
-  chanceArea.textContent = `남은기회: ${chances}번`;
-  console.log("change", chances);
-
-  if (userValue < computerNum) {
-    console.log("Up!!");
-    resultArea.textContent = `${userValue}보다 큰 수 입니다. Up!!`;
-  } else if (userValue > computerNum) {
-    console.log("Down!!");
-    resultArea.textContent = `${userValue}보다 작은 수 입니다. Down!!`;
+  chance--;
+  chanceArea.textContent = `남은 기회: ${chance}번`;
+  if (userNum < randomNum) {
+    minNum = Math.max(minNum, userNum) + 1;
+    rangeArea.textContent = `${minNum} ~ ${maxNum} 사이의 숫자를 입력해주세요.`;
+    resultArea.textContent = `${userNum} 보다 큽니다. Up!!`;
+    imgArea.src = upImages[chance - 1];
+  } else if (userNum > randomNum) {
+    maxNum = Math.min(maxNum, userNum) - 1;
+    rangeArea.textContent = `${minNum} ~ ${maxNum} 사이의 숫자를 입력해주세요.`;
+    resultArea.textContent = `${userNum} 보다 작습니다. Down!!`;
+    imgArea.src = downImages[chance - 1];
   } else {
-    console.log("정답!");
-    resultArea.textContent = `${userValue} 정답입니다.`;
-    gameOver = true;
+    resultArea.textContent = `정답입니다!!`;
+    imgArea.src =
+      "https://media.giphy.com/media/6brH8dM3zeMyA/giphy.gif?cid=790b7611tcnqyt1563omqkkjsyad7dm7qytesf96rd785kgt&ep=v1_gifs_search&rid=giphy.gif&ct=g";
+    btnGo.disabled = true;
   }
 
-  history.push(userValue);
-  console.log(history);
-
-  if (chances == 0) {
+  if (chance == 0) {
     gameOver = true;
+    resultArea.textContent = `정답은 ${randomNum} 이었습니다..`;
+    imgArea.src =
+      "https://media.giphy.com/media/00i0Tdhf4rsEkGIB2H/giphy.gif?cid=790b7611p9kqnmjlc254m2jo16n50a69uila6a8aiqo9n9s7&ep=v1_gifs_search&rid=giphy.gif&ct=g";
   }
 
   if (gameOver) {
-    playButton.disabled = true;
+    btnGo.disabled = true;
   }
 }
 
-function reset() {
-  // user input창이 깨끗하게 정리되고
+function reset_game() {
   userInput.value = "";
-  // 새로운 번호가 생성되고
-  pickRandomNum();
+  maxNum = 100;
+  minNum = 1;
+  rangeArea.textContent = `${minNum} ~ ${maxNum} 사이의 숫자를 입력해주세요.`;
+  resultArea.textContent = `Up & Down`;
 
-  resultArea.textContent = "1~100의 숫자를 입력해주세요.";
+  chance = 7;
+  chanceArea.textContent = `남은 기회: ${chance}번`;
+  make_randomNum();
+  gameOver = false;
+  btnGo.disabled = false;
+  imgArea.src =
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDBlZ3FseGZ0d3VucmhocXN5cHNzOGhhemNsaDA0ZHd0dHh3NWd5ayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/CjmvTCZf2U3p09Cn0h/giphy.gif";
 }
-
-pickRandomNum();
