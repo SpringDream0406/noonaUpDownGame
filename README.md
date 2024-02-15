@@ -1,8 +1,12 @@
-[Up & Down Game](https://noonaupdowngame.netlify.app/)
-<hr>
+# Up & Down Game
 
 ![updowngame](https://github.com/SpringDream0406/noonaUpDownGame/assets/150095756/274d273c-0d6c-45df-b0f3-dfe02659486b)
 <hr>
+
+🕹️ 데모 : [Up & Down Game](https://noonaupdowngame.netlify.app/)
+<hr>
+
+
 
 # 기능
 - 컴퓨터는 게임이 시작할 때 랜덤한 숫자를 뽑는다
